@@ -108,13 +108,14 @@ async def on_user_join(message: types.Message):
             current_date = now_myanmar.strftime("%d/%m/%Y")
             
             group_name = message.chat.title if message.chat.title else "Group"
+            username = f"@{user.username}" if user.username else "-"
             
             welcome_msg = (
                 f"🌟 **{user.full_name}** ရေ {group_name} ကနေ နွေးထွေးစွာ ကြိုဆိုပါတယ်ရှင့်! 🌟\n\n"
-                f" f'**Username:** @{user.username if user.username else \"-\"}\n"
-                f" f'**ID:** `{user.id}`\n"
-                f" f'**Time:** `{current_time}`\n"
-                f" f'**Date:** `{current_date}`\n\n"
+                f"**Username:** {username}\n"
+                f"**ID:** `{user.id}`\n"
+                f"**Time:** `{current_time}`\n"
+                f"**Date:** `{current_date}`\n\n"
                 "💞 ရည်းစားလည်းဝင်ရှာ၊ စကားလည်းပြောရင်း လူလေးတို့ ပျော်ရွှင်စွာ စကားပြောနိုင်ပါတယ်ရှင့်။ ✨"
             )
             await message.answer(welcome_msg, parse_mode=ParseMode.MARKDOWN)
@@ -134,4 +135,4 @@ app = bot
 
 if __name__ == "__main__":
     asyncio.run(main())
-            
+                        
