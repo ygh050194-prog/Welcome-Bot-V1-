@@ -174,4 +174,6 @@ if __name__ == "__main__":
     asyncio.run(main())
     if __name__ == "__main__":
      app.run()
-    
+# Gunicorn အတွက် လမ်းကြောင်း ပြန်ချိတ်ပေးခြင်း
+ app = dp
+
