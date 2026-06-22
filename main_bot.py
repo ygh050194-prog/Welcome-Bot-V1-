@@ -168,12 +168,10 @@ async def main() -> None:
     print("Bot is starting...")
     await dp.start_polling(bot)
 
+app = bot
+
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, stream=sys.stdout)
-    keep_alive() # Start Web Server for Render
+    keep_alive()  # Start Web Server for Render
     asyncio.run(main())
-    if __name__ == "__main__":
-     app.run()
-        app = bot
-
-
+    
