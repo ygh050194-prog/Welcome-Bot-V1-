@@ -4,7 +4,8 @@ import sys
 import json
 import os
 import datetime
-import pytz  # Import pytz for timezone handling
+import pytz
+
 from aiogram import Bot, Dispatcher, types, F
 from aiogram.filters import CommandStart, Command
 from aiogram.enums import ParseMode
@@ -12,8 +13,7 @@ from aiogram.client.default import DefaultBotProperties
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 from keep_alive import keep_alive
 
-# CONFIGURATION
-TOKEN "8661845324:AAEh3Y669m5V7A8mSFhe9D2SxxuvjDcCCbQ"
+TOKEN = "8661845324:AAEh3Y669m5V7A8mSFhe9D2SxxuvjDcCcbQ"
 ADMIN_ID = 8910295767
 CHATS_FILE = "chats.json"
 
