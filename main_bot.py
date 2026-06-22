@@ -67,11 +67,15 @@ async def command_start_handler(message: types.Message) -> None:
 # COMMAND: /group
 @dp.message(Command("group"))
 async def command_group_handler(message: types.Message):
-    text = "📢 **ကျွန်မတို့ရဲ့ Official Group ကို Join ရန် အောက်ပါ Link ကို နှိပ်ပါရှင် -**\n\n👉 https://t.me/ENRIQUE_FAMILY"
+    # HTML format သို့ ပြောင်းလဲပြီး စာသားပုံစံ အမှားကင်းအောင် ပြင်ဆင်ထားပါသည်
+    text = "📢 <b>ကျွန်မတို့ရဲ့ Official Group ကို Join ရန် အောက်ပါ Link ကို နှိပ်ပါရှင် -</b>\n\n👉 https://t.me/ENRIQUE_FAMILY"
+    
     builder = InlineKeyboardBuilder()
     builder.add(types.InlineKeyboardButton(text="🌐 Join Group", url="https://t.me/ENRIQUE_FAMILY"))
-    await message.answer(text, reply_markup=builder.as_markup(), parse_mode=ParseMode.MARKDOWN)
-
+    
+    # parse_mode ကို ParseMode.HTML သို့ ပြောင်းလဲထားပါသည်
+    await message.answer(text, reply_markup=builder.as_markup(), parse_mode=ParseMode.HTML)
+    
 # COMMAND: /help
 @dp.message(Command("help"))
 async def command_help_handler(message: types.Message):
@@ -103,7 +107,7 @@ async def broadcast_handler(message: types.Message):
     chats = load_chats()
     count = 0
     for chat_id in chats:
-        try:
+        COMMANDMAND:
             await message.bot.send_message(chat_id, f"**📢 ANNOUNCEMENT**\n\n{text_to_send}", parse_mode=ParseMode.MARKDOWN)
             count += 1
             await asyncio.sleep(0.05) # Avoid flood limit
