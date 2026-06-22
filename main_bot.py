@@ -67,29 +67,15 @@ async def command_start_handler(message: types.Message) -> None:
 # COMMAND: /group
 @dp.message(Command("group"))
 async def command_group_handler(message: types.Message):
-    # HTML format သို့ ပြောင်းလဲပြီး စာသားပုံစံ အမှားကင်းအောင် ပြင်ဆင်ထားပါသည်
+    # စာသားပုံစံ အမှားကင်းအောင် HTML Tags များဖြင့် ပြင်ဆင်ထားပါသည်
     text = "📢 <b>ကျွန်မတို့ရဲ့ Official Group ကို Join ရန် အောက်ပါ Link ကို နှိပ်ပါရှင် -</b>\n\n👉 https://t.me/ENRIQUE_FAMILY"
     
     builder = InlineKeyboardBuilder()
     builder.add(types.InlineKeyboardButton(text="🌐 Join Group", url="https://t.me/ENRIQUE_FAMILY"))
     
-    # parse_mode ကို ParseMode.HTML သို့ ပြောင်းလဲထားပါသည်
+    # parse_mode ကို ParseMode.HTML သို့ တိကျစွာ ပြောင်းလဲထားပါသည်
     await message.answer(text, reply_markup=builder.as_markup(), parse_mode=ParseMode.HTML)
     
-# COMMAND: /help
-@dp.message(Command("help"))
-async def command_help_handler(message: types.Message):
-    help_text = (
-        "❓ **Bot ကို ဘယ်လိုအသုံးပြုရမလဲ?**\n\n"
-        "၁။ ဦးစွာ ကျွန်မကို သင်၏ Group ထဲသို့ ထည့်သွင်းပါ။\n"
-        "၂။ ထို့နောက် ကျွန်မကို **Admin** ရာထူး ပေးထားပါ။\n"
-        "၃။ Bot သည် အဖွဲ့ဝင်အသစ်ဝင်လာလျှင် (Welcome) နှင့် ထွက်သွားလျှင် (Goodbye) အတွက် အလိုအလျောက် အလုပ်လုပ်ပေးပါမည်။\n\n"
-        "**အသုံးပြုနိုင်သော Command များ -**\n"
-        "• /start - Bot ကို စတင်ရန်\n"
-        "• /group - Group Link ရယူရန်\n"
-        "• /help - အသုံးပြုပုံ လမ်းညွှန်ချက်"
-    )
-    await message.answer(help_text, parse_mode=ParseMode.MARKDOWN)
 
 # COMMAND: /broadcast
 @dp.message(Command("broadcast"))
