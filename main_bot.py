@@ -20,14 +20,18 @@ dp = Dispatcher()
 chat_ids = set()
 
 # /start command
+# /start command နေရာမှာ ဒါလေးနဲ့ အစားထိုးပါ
 @dp.message(Command("start"))
-async def start_command(message: types.Message):
+async def start_handler(message: types.Message):
     chat_ids.add(message.chat.id)
-    welcome_text = (
-        "🌟 **ENRIQUE FAMILY မှ ကြိုဆိုပါတယ်ရှင့်!** 🌟\n\n"
+    # အသုံးပြုသူရဲ့ နာမည်ကို ယူခြင်း
+    user_name = message.from_user.full_name
+    
+    text = (
+        f"🌟 **{user_name} ရေ ကြိုဆိုပါတယ်ရှင့်!** 🌟\n\n"
         "ကျွန်မကတော့ သင့်ရဲ့ Group တွေကို အကောင်းဆုံး စောင့်ရှောက်ပေးမယ့် "
         "Welcome/Goodbye Bot လေး ဖြစ်ပါတယ်ရှင်။\n\n"
-        "အောက်က Button လေးတွေကို နှိပ်ပြီး ကျွန်မတို့နဲ့ ချိတ်ဆက်နိုင်ပါတယ်ရှင်။"
+        "အောက်က Button လေးတွေကို နှိပ်ပြီး ကျွန်မတို့နဲ့ ချိတ်ဆက်နိုင်ပါတယ်ရှင်။ ✨"
     )
     keyboard = InlineKeyboardMarkup(inline_keyboard=[
         [
@@ -35,29 +39,8 @@ async def start_command(message: types.Message):
             InlineKeyboardButton(text="👤 Owner", url="https://t.me/Official_Enr_Keno")
         ]
     ])
-    await message.answer(welcome_text, reply_markup=keyboard, parse_mode="Markdown")
-
-# /group command
-@dp.message(Command("group"))
-async def group_command(message: types.Message):
-    text = "📢 **ကျွန်မတို့ရဲ့ Official Group ကို ဒီမှာ Join နိုင်ပါတယ်ရှင် -**\n\n👉 https://t.me/ENRIQUE_FAMILY"
-    await message.answer(text, parse_mode="Markdown")
-
-# /help command
-@dp.message(Command("help"))
-async def help_command(message: types.Message):
-    help_text = (
-        "❓ **Bot ကို ဘယ်လိုသုံးရမလဲ?**\n\n"
-        "၁။ Bot ကို သင့် Group ထဲသို့ Add လုပ်ပါ။\n"
-        "၂။ Bot ကို **Admin** ပေးပြီး Message ဖတ်ခွင့်ပြုပါ။\n"
-        "၃။ ဒါဆိုရင် လူဝင်/ထွက်တာနဲ့ Bot က အလိုအလျောက် အလုပ်လုပ်ပေးမှာ ဖြစ်ပါတယ်ရှင်။\n\n"
-        "**ရရှိနိုင်သော Command များ -**\n"
-        "/start - Bot ကို စတင်ရန်\n"
-        "/group - Group Link ရယူရန်\n"
-        "/help - အကူအညီ ရယူရန်"
-    )
-    await message.answer(help_text, parse_mode="Markdown")
-
+    await message.answer(text, reply_markup=keyboard, parse_mode="Markdown")
+    
 # /broadcast command (Owner only)
 @dp.message(Command("broadcast"))
 async def broadcast_command(message: types.Message):
