@@ -1,6 +1,5 @@
 import asyncio
 import logging
-import sys
 from aiogram import Bot, Dispatcher, types, F
 from aiogram.filters import Command
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
@@ -11,35 +10,31 @@ TOKEN = "8661845324:AAEh3Y669m5V7A8mSFhe9D2SxxuvjDcCCbQ"
 ADMIN_ID = 8910295767
 
 # Logging setup
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 bot = Bot(token=TOKEN)
 dp = Dispatcher()
 
-# Chat IDs သိမ်းဆည်းရန်
+# Chat IDs (Broadcast အတွက်)
 chat_ids = set()
 
 # /start command
 @dp.message(Command("start"))
 async def start_command(message: types.Message):
     chat_ids.add(message.chat.id)
-    logger.info(f"Start command received from {message.chat.id}")
-    
     welcome_text = (
         "🌟 **ENRIQUE FAMILY မှ ကြိုဆိုပါတယ်ရှင့်!** 🌟\n\n"
         "ကျွန်မကတော့ သင့်ရဲ့ Group တွေကို အကောင်းဆုံး စောင့်ရှောက်ပေးမယ့် "
         "Welcome/Goodbye Bot လေး ဖြစ်ပါတယ်ရှင်။\n\n"
         "အောက်က Button လေးတွေကို နှိပ်ပြီး ကျွန်မတို့နဲ့ ချိတ်ဆက်နိုင်ပါတယ်ရှင်။"
     )
-    
     keyboard = InlineKeyboardMarkup(inline_keyboard=[
         [
             InlineKeyboardButton(text="🆘 Support", url="https://t.me/ENRIQUE_FAMILY"),
             InlineKeyboardButton(text="👤 Owner", url="https://t.me/Official_Enr_Keno")
         ]
     ])
-    
     await message.answer(welcome_text, reply_markup=keyboard, parse_mode="Markdown")
 
 # /group command
@@ -78,15 +73,14 @@ async def broadcast_command(message: types.Message):
             await bot.send_message(chat_id, text)
             count += 1
             await asyncio.sleep(0.05)
-        except Exception as e:
-            logger.error(f"Failed to send broadcast to {chat_id}: {e}")
+        except:
+            continue
     await message.answer(f"✅ စုစုပေါင်း {count} နေရာကို စာပို့ပြီးပါပြီရှင်။")
 
-# Group ထဲဝင်လာလျှင် သတိပေးချက်
+# Group ထဲဝင်လာလျှင်
 @dp.my_chat_member()
 async def on_bot_added(event: types.ChatMemberUpdated):
     if event.new_chat_member.status in ["member", "administrator"]:
-        chat_ids.add(event.chat.id)
         text = (
             "🙏 **မဂ်လာပါရှင့်!**\n\n"
             "ကျွန်မကို အသုံးပြုဖို့အတွက် **Admin** အရင်ပေးထားဖို့ လိုအပ်ပါတယ်ရှင်။\n"
@@ -120,10 +114,9 @@ async def goodbye_member(message: types.Message):
 
 async def main():
     keep_alive()
-    logger.info("Deleting existing webhook...")
     await bot.delete_webhook(drop_pending_updates=True)
-    logger.info("Bot is starting polling...")
     await dp.start_polling(bot)
 
 if __name__ == "__main__":
     asyncio.run(main())
+    
